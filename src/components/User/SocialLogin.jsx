@@ -2,14 +2,13 @@ import React from "react";
 import { Box, Button, Typography } from "@mui/material";
 import JoinLogo from "../../assets/images/User/join-logo.png";
 import KakaoLogo from "../../assets/images/User/kakao-logo.svg";
-//import NaverLogo from "../../assets/images/User/naver-logo.svg";
 import NaverLogo from "../../assets/images/User/naver-logo2.png";
 import GoogleLogo from "../../assets/images/User/google-logo.svg";
 
 const SocialLogin = () => {
     const handleOAuthLogin = (provider) => {
-        // ✅ 리다이렉트 방식으로 이동
-        window.location.href = `/api/oauth2/authorization/${provider}`;
+        // ✅ 직접 하드코딩으로 정확한 URL 지정
+        window.location.href = `https://api.lulufriends.kro.kr/api/oauth2/authorization/${provider}`;
     };
 
     return (
@@ -38,7 +37,6 @@ const SocialLogin = () => {
 
             <Box width="90%" display="flex" flexDirection="column" alignItems="center" gap={2}>
                 <Button
-                    // variant="outlined"
                     onClick={() => handleOAuthLogin("kakao")}
                     sx={{
                         backgroundColor: "#FEE500",
@@ -64,7 +62,6 @@ const SocialLogin = () => {
                 </Button>
 
                 <Button
-                    // variant="outlined"
                     onClick={() => handleOAuthLogin("naver")}
                     sx={{
                         backgroundColor: "#00C300",
