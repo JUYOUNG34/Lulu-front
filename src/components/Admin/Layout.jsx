@@ -264,7 +264,7 @@ const Layout = ({ children }) => {
                                 margin: "0 6px 3px 0",
                             }}
                         />
-                        <Typography variant="h5">꼬리친구들</Typography>
+                        <Typography variant="h5">룰루친구들</Typography>
                     </DrawerHeader>
                 </Link>
 

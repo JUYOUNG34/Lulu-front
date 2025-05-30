@@ -15,7 +15,7 @@ const SocialLogin = () => {
     return (
         <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" textAlign="center">
             <Typography variant="h6" fontWeight="bold" mt={3} mb={4}>
-                꼬리친구들
+                룰루친구들
             </Typography>
             <Box
                 display="flex"
@@ -33,7 +33,7 @@ const SocialLogin = () => {
                 다양한 애완동물을 위한 컨텐츠!
             </Typography>
             <Typography variant="body1" mb={9} sx={{ color: "#C8C8C8" }}>
-                꼬리친구들을 만나볼까요?
+                룰루친구들을 만나볼까요?
             </Typography>
 
             <Box width="90%" display="flex" flexDirection="column" alignItems="center" gap={2}>
