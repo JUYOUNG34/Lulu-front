@@ -108,7 +108,7 @@ const ProtectedRoute = () => {
                 const permission = await Notification.requestPermission();
                 if (permission !== "granted") return;
                 const currentToken = await getToken(messaging, {
-                    vapidKey: "BJfLUXGb7eC1k4y9ihVlJp7jzWlgp_gTKjqggd4WKX9U6xQsRelQupBMT9Z3PdvFYpYJKolSaguWXHzCUWVugXc",
+                    vapidKey: "BNmKzq1qfUgsxe30IrxqaI4w7d2CnKsia_XCMpN1gKTS4SDUtCsDMtWpCSnkMt2oCXOjKpaToBEDAG1dlo4Wags",
                 });
                 if (!currentToken) throw new Error("FCM 토큰을 가져오지 못했습니다.");
                 await saveOrUpdateFcmToken({ userId, fcmToken: currentToken, mobile, dev });
