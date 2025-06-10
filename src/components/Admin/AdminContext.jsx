@@ -4,6 +4,9 @@ import adminAxios from "./adminAxios.js";
 // Context 생성
 const AdminContext = createContext();
 
+// ✅ 백엔드 API URL 상수 정의
+const API_BASE_URL = "https://api.lulufriends.kro.kr/api";
+
 // 메뉴별 검색 필터 매핑 정의 (각 메뉴에서 검색할 수 있는 필드들)
 const menuSearchFiltersMap = {
     "게시글 목록": ["제목", "내용", "작성자"],
@@ -66,7 +69,8 @@ export const AdminProvider = ({ children }) => {
 
             if (token) {
                 try {
-                    const response = await fetch("/api/admin/auth/validate", {
+                    // ✅ 백엔드 도메인으로 수정
+                    const response = await fetch(`${API_BASE_URL}/admin/auth/validate`, {
                         headers: { Authorization: `Bearer ${token}` },
                     });
 
@@ -99,7 +103,8 @@ export const AdminProvider = ({ children }) => {
     // 로그인 함수
     const login = async (email, password) => {
         try {
-            const response = await fetch("/api/admin/login", {
+            // ✅ 백엔드 도메인으로 수정
+            const response = await fetch(`${API_BASE_URL}/admin/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -188,4 +193,10 @@ export const AdminProvider = ({ children }) => {
 };
 
 // 커스텀 Hook으로 Context 사용을 간편하게
-export const useAdmin = () => useContext(AdminContext);
+export const useAdmin = () => {
+    const context = useContext(AdminContext);
+    if (!context) {
+        throw new Error('useAdmin must be used within an AdminProvider');
+    }
+    return context;
+};

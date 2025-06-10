@@ -320,22 +320,20 @@ const FacilityUpdate = () => {
 
                 // 스크립트 새로 로드
                 const kakaoScript = document.createElement("script");
-                kakaoScript.src =
-                    "//dapi.kakao.com/v2/maps/sdk.js?appkey=7ac55a0491ab1e4fb8a487b6d212f9bd&libraries=services";
+                kakaoScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${import.meta.env.VITE_KAKAO_MAP_KEY}&libraries=services&autoload=false`;
                 kakaoScript.async = true;
 
                 kakaoScript.onload = () => {
-                    // console.log("카카오맵 스크립트 로드 완료");
-
-                    // kakao 객체가 초기화될 때까지 대기
-                    const checkKakaoInterval = setInterval(() => {
-                        if (window.kakao && window.kakao.maps) {
-                            // console.log("카카오맵 객체 초기화 완료");
-                            clearInterval(checkKakaoInterval);
+                    if (window.kakao && window.kakao.maps) {
+                        window.kakao.maps.load(() => {
+                            // console.log('✅ 어드민 카카오 맵 초기화 완료');
                             setMapScriptLoaded(true);
                             resolve();
-                        }
-                    }, 100);
+                        });
+                    } else {
+                        // console.error('❌ 카카오 객체 로드 실패');
+                        resolve();
+                    }
                 };
 
                 document.body.appendChild(kakaoScript);

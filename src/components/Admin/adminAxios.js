@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const adminAxios = axios.create({
-    baseURL: "https://tailfriends.kro.kr",
+    baseURL: "https://api.lulufriends.kro.kr",
+    timeout: 10000, // 10초 타임아웃 추가
 });
 
 adminAxios.interceptors.request.use(
@@ -22,10 +23,8 @@ adminAxios.interceptors.response.use(
     (error) => {
         if (error.response && error.response.status === 401) {
             console.warn("401 에러 발생 - 자동 로그아웃");
-
             localStorage.removeItem("adminToken");
             localStorage.removeItem("adminEmail");
-
             window.location.href = "/admin";
         }
         return Promise.reject(error);

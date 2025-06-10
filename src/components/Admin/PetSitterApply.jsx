@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom"; // React Router 사용 가정
+import { useNavigate, useParams } from "react-router-dom";
+import adminAxios from "./adminAxios.js";
 import {
     Box,
     Card,
@@ -101,19 +102,9 @@ const PetSitterApply = () => {
     const handlePending = async () => {
         try {
             setLoading(true);
-            const token = localStorage.getItem("adminToken");
-            const response = await fetch(`/api/admin/petsitter/pending/${id}/pending`, {
-                method: "POST",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                },
-            });
 
-            if (!response.ok) {
-                const data = await response.json();
-                throw new Error(data.message || "펫시터 반려에 실패했습니다");
-            }
+            // ✅ adminAxios 사용
+            const response = await adminAxios.post(`/api/admin/petsitter/pending/${id}/pending`);
 
             setModalMessage("펫시터가 성공적으로 반려되었습니다");
             setIsSuccess(true);
@@ -121,25 +112,17 @@ const PetSitterApply = () => {
             console.error("펫시터 반려 API 호출 중 오류 발생: ", error);
             setModalMessage(`펫시터 반려 실패: ${error.message}`);
             setIsSuccess(false);
+        } finally {
+            setLoading(false);
         }
     };
 
     const handleApprove = async () => {
         try {
             setLoading(true);
-            const token = localStorage.getItem("adminToken");
-            const response = await fetch(`/api/admin/petsitter/pending/${id}/approve`, {
-                method: "POST",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                },
-            });
 
-            if (!response.ok) {
-                const data = await response.json();
-                throw new Error(data.message || "펫시터 승인에 실패했습니다");
-            }
+            // ✅ adminAxios 사용
+            const response = await adminAxios.post(`/api/admin/petsitter/pending/${id}/approve`);
 
             setModalMessage("펫시터가 성공적으로 승인되었습니다");
             setIsSuccess(true);
@@ -147,6 +130,8 @@ const PetSitterApply = () => {
             console.error("펫시터 승인 API 호출 중 오류 발생: ", error);
             setModalMessage(`펫시터 승인 실패: ${error.message}`);
             setIsSuccess(false);
+        } finally {
+            setLoading(false);
         }
     };
 
